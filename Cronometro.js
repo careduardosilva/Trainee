@@ -12,39 +12,76 @@ export default class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      numero: 0
+      is_ticking: false,
+      segundos: 0,
+      minutos: 0,
+      horas: 0,
     };
+  var tempo = setInterval(this.Ticking)
+  }
+  Iniciar = () => 
+  {
+    this.setState({is_ticking:true});
   }
   Ticking = () => {
-    let tempo = setInterval(this.Incrementar,1000);
-  }
-  Incrementar = () => {
+    if(this.state.is_ticking === true){
     this.setState({
-      numero: this.state.numero + 1
+      segundos: this.state.segundos + 1
     });
+    if(this.state.segundos >= 60) 
+    {
+      this.setState({
+        segundos: 0, 
+        minutos: this.state.minutos + 1,
+        })
+    }
+    if(this.state.minutos >= 60)
+    {
+      this.setState({horas: this.horas.state + 1})
+    }
+    }
 }
+  Parar = () => {
+    this.setState({
+      is_ticking:false,
+    })
+  }
   Zerar = () => {
     this.setState({
-      numero: 0
+      segundos: 0,
+      minutos: 0,
+      horas: 0,
+      is_ticking: false,
+      tempo: clearInterval(this.Ticking)
     });
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style = {{backgroundColor:'white', flex:1, flexDirection: 'center',justifyContent: 'space-between'}}>
+      <View style={{flex:100, backgroundColor:'#1E90FF'}}>
+        <View style = {{backgroundColor:'#1E90FF', flex:10, flexDirection:'column-reverse', alignItems:'flex-start'}}>
+          <Button title = '<- Voltar'
+          style = {{alignSelf:'flex-end',width:50}}></Button>
+        </View>
+        <Text style = {{fontSize:30, color:'white', alignSelf:'center'}}>Cronomêtro</Text>
+        <View style = {{backgroundColor:'#1E90FF', flex:50,justifyContent: 'space-evenly'}}>
           <Button title = "Iniciar"
-          style = {{fontSize:10,flex:1, backgroundColor:"red"}}
-          onPress ={this.Ticking}>
+          style = {{fontSize:10, backgroundColor:'red'}}
+          onPress ={this.Iniciar}>
           </Button>
-          <Button title = "Zerar"
+          <Button title = "Parar"
+          onPress={this.Parar}>
+          </Button>
+          <Button title = "ZERAR"
           onPress = {this.Zerar}>
           </Button>
-      <Text style = {{fontSize:60}}>
-        <Text>{this.state.numero}</Text>
-      </Text>
         </View>
+      <View style = {{backgroundColor:'white', borderRadius: 50, borderLeftWidth:10}}>
+        <Text style = {{fontSize:60,alignSelf:'flex-end'}}> {this.state.segundos}</Text>
+        <Text style = {{fontSize:60, alignSelf:'center'}}> {this.state.minutos}</Text>
+        <Text style = {{fontSize:60, alignSelf:'flex-start'}}> {this.state.horas}</Text>
       </View>
+    </View>  
     );
   }
 }
