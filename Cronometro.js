@@ -37,7 +37,10 @@ export default class App extends React.Component {
     }
     if(this.state.minutos >= 60)
     {
-      this.setState({horas: this.horas.state + 1})
+      this.setState({
+        minutos: 0,
+        horas: this.state.horas + 1
+        })
     }
     }
 }
@@ -63,7 +66,7 @@ export default class App extends React.Component {
           <Button title = '<- Voltar'
           style = {{alignSelf:'flex-end',width:50}}></Button>
         </View>
-        <Text style = {{fontSize:30, color:'white', alignSelf:'center'}}>Cronomêtro</Text>
+        <Text style = {{fontSize:30, color:'#FFFAF0', alignSelf:'center'}}>Cronomêtro</Text>
         <View style = {{backgroundColor:'#1E90FF', flex:50,justifyContent: 'space-evenly'}}>
           <Button title = "Iniciar"
           style = {{fontSize:10, backgroundColor:'red'}}
@@ -76,7 +79,7 @@ export default class App extends React.Component {
           onPress = {this.Zerar}>
           </Button>
         </View>
-      <View style = {{backgroundColor:'white', borderRadius: 50, borderLeftWidth:10}}>
+      <View style = {{backgroundColor:'#F0F8FF', borderRadius: 50, borderLeftWidth:10}}>
         <Text style = {{fontSize:60,alignSelf:'flex-end'}}> {this.state.segundos}</Text>
         <Text style = {{fontSize:60, alignSelf:'center'}}> {this.state.minutos}</Text>
         <Text style = {{fontSize:60, alignSelf:'flex-start'}}> {this.state.horas}</Text>
